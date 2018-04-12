@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<input type="text" id="xingzuo" placeholder="請輸入星座"/>
+	
+	<select id="type">
+		<option value="today">今天</option>
+		<option value="tomorrow">明天</option>
+		<option value="week">本週</option>
+		<option value="nextweek">下週</option>
+		<option value="month">本月</option>
+		<option value="year">今年</option>
+	</select>
+	
+	<input type="button" value="查詢運勢" id="btn1"/>
+	
+	<hr />
+	
+	<p>星座：<span id="name"> </span> </p>
+	<p>綜述：<span id="all"> </span> </p>
+	<p>幸運色：<span id="color"> </span> </p>
+	<p>健康：<span id="health"> </span> </p>
+	<p>愛情：<span id="love"> </span> </p>
+	<p>財運：<span id="money"> </span> </p>
+	<p>幸運數字：<span id="number"> </span> </p>
+	<p>工作：<span id="work"> </span> </p>
+	
+	<script src="js/jquery.js"></script>
+	
+	<script>
+		
+		$('#btn1').click(function() {
+			
+			var url = 'XingZuoServlet';  
+			var params = {
+				consName:$('#xingzuo').val(),
+				type:$('#type').val()
+			}
+			$.getJSON(url,params,function(data) {
+				console.log(data);
+				
+			});
+		});
+		
+	</script>
+</body>
+</html>
