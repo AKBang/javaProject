@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<input type="button" value="get请求1" id="btn1" />
+		<input type="button" value="get请求2" id="btn2" />
+		
+		<script type="text/javascript" src="js/jquery.js" ></script>
+		<script>
+			$(function() {
+				
+				$('#btn1').click(function() {
+					
+					//参数列表：请求url，请求参数，请求响应成功的回调函数，响应的内容类型
+					$.get('RequestFormServlet',{username:'tom',userpwd:'123456'},function(data,status,xhr) {
+						
+						alert('请求成功,' + data);//响应的数据
+						console.log(status);//响应的状态  success  error
+						console.log(xhr);//ajax核心对象
+						
+					},'html')
+					.error(function(xhr,errorStatus,errorText){
+						alert('请求失败,' + errorText);
+					});
+					
+				});				
+				
+				$('#btn2').click(function() {
+					
+					//url重写方式传递数据
+					$.get('RequestFormServlet?username=jack&userpwd=666999',function(data,status,xhr) {
+						alert('请求成功,' + data);//响应的数据
+						console.log(status);//响应的状态  success  error
+						console.log(xhr);//ajax核心对象
+						
+					},'text');
+					
+				});	
+				
+				
+			});			
+		</script>
+	</body>
+</html>
