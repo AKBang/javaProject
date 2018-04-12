@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<form id="form1" action="http://192.168.13.254" method="post">
+			<table border="0" width="500" align="center">
+				<tr>
+					<td colspan="2" align="center" bgcolor="#ccc">请认真填写以下资料</td>
+				</tr>
+				<tr>
+					<td width="30%">用户名</td>
+					<td width="70%">
+						<input type="text" name="username" size="10" 
+							maxlength="6" placeholder="请输入用户名" value="中软国际"/>
+					</td>
+				</tr>
+				<tr>
+					<td>设置密码</td>
+					<td>
+						<input type="password" name="userpwd" />
+					</td>
+				</tr>
+				<tr>
+					<td>自我介绍</td>
+					<td>
+						<textarea name="myinfo" rows="5" cols="45">没有什么可说的</textarea>
+					</td>
+				</tr>
+				<tr>
+					<td>性别</td>
+					<td>
+						<label for="boy">
+							<input type="radio" name="sex" value="boy" id="boy"/>先生
+						</label>
+						<label for="girl">
+							<input type="radio" name="sex" value="girl" id="girl" checked/>女士
+						</label>
+					</td>
+				</tr>
+				<tr>
+					<td>技能</td>
+					<td>
+						<input type="checkbox" name="skill" value="java" />java
+						<input type="checkbox" name="skill" value="html" checked/>html
+						<input type="checkbox" name="skill" value="oracle" checked />oracle
+						<input type="checkbox" name="skill" value="linux" />linux
+					</td>
+				</tr>
+				<tr>
+					<td>选择城市</td>
+					<td>
+						<select name="city">
+							<option value="beijing">北京</option>
+							<option value="shanghai">上海</option>
+							<option value="guangzhou" selected>广州</option>
+							<option value="shenzhen">深圳</option>
+						</select>
+					</td>
+				</tr>				
+				<tr>
+					<td>隐藏id</td>
+					<td>
+						<input type="hidden" value="20071822" name="id" />
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" align="center">
+						<input type="button" value="ajax请求" id="btn1" />
+					</td>					
+				</tr>			
+			</table>
+		</form>		
+			
+		<script type="text/javascript" src="js/jquery.js" ></script>
+		<script>
+			$(function() {
+				
+				$('#btn1').click(function() {
+					
+					//请求参数，序列化表单数据为请求参数格式
+					var params = $('#form1').serialize();
+					
+					alert(params);
+					
+					/*ajax的完整语法*/
+					$.ajax({
+						url:'RegisterServlet', //请求url地址
+						type:'POST', //请求方式
+						dataType:'text',//响应的内容类型
+						data:params, //请求参数
+						success:function(data,status,xhr) { //请求成功回调
+							alert('请求成功,' + data);
+						},
+						error:function(xhr,errorStatus,errorText) { //请求失败回调
+							alert('请求失败，' + errorStatus + ',' + errorText + ',' + xhr.status);
+						}
+					});
+					
+				});	
+				
+			});			
+		</script>
+	</body>
+</html>

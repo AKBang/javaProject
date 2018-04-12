@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>			
+		<input type="button" value="ajax请求" id="btn1" />
+			
+		<script type="text/javascript" src="js/jquery.js" ></script>
+		<script>
+			$(function() {
+				
+				$('#btn1').click(function() {
+					
+					/*ajax的完整语法*/
+					$.ajax({
+						timeout:4000,//超时时间4000毫秒
+						url:'Request2Servlet', //请求url地址
+						type:'GET', //请求方式
+						dataType:'text',//响应的内容类型
+						data:{username:'jack',userpwd:'123456'}, //请求参数
+						success:function(data,status,xhr) { //请求成功回调
+							alert('请求成功,' + data);
+						},
+						error:function(xhr,errorStatus,errorText) { //请求失败回调
+							if (errorStatus == 'timeout') 
+								alert('请求超时，请重新操作');
+							else							
+								alert('请求失败，' + errorStatus + ',' + errorText + ',' + xhr.status);
+						}
+					});
+					
+				});	
+				
+			});			
+		</script>
+	</body>
+</html>

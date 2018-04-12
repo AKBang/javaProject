@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>	
+		<div id="div1"></div>
+		
+		<input type="button" value="json数据请求1" id="btn1" />
+						
+		<script type="text/javascript" src="js/jquery.js" ></script>
+		<script>
+			$(function() {
+				
+				$('#btn1').click(function() {
+					
+					//根据响应的json数据动态在网页中生成一个表格
+					$.getJSON('json3.txt',function(data) {
+						
+						//清空div1
+						$('#div1').empty();
+						
+						//在div1中创建表格
+						var table = $('<table border="1"></table>').appendTo('#div1');
+						
+						//在表格中添加标题行 
+						table.append('<tr><th>编号</th><th>姓名</th><th>工资</th><th>入职日期</th></tr>');
+						
+						$.each(data.list,function(index,el) {
+							
+							//在表格中追加数据行
+							table.append('<tr><td>' + el.empno + '</td><td>' + el.ename 
+								+ '</td><td>' + el.salary + '</td><td>' + el.hiredate + '</td></tr>');
+							
+						});
+						
+					});
+					
+				});	
+				
+			});			
+		</script>
+	</body>
+</html>

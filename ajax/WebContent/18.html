@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>			
+		<input type="button" value="ajax请求" id="btn1" />
+			
+		<script type="text/javascript" src="js/jquery.js" ></script>
+		<script>
+			$(function() {
+				
+				$('#btn1').click(function() {
+					
+					/*ajax的完整语法*/
+					var ajax1 = $.ajax({
+						//async:false;//同步执行
+						url:'Request1Servlet', //请求url地址
+						type:'GET', //请求方式
+						dataType:'text',//响应的内容类型
+						data:{}, //请求参数
+						success:function(data,status,xhr) { //请求成功回调
+							alert('请求成功,' + data);
+						},
+						error:function(xhr,errorStatus,errorText) { //请求失败回调
+							alert('请求失败，' + errorStatus + ',' + errorText + ',' + xhr.status);
+						}
+					});
+					
+					/*ajax的完整语法*/
+					var ajax2 = $.ajax({
+						url:'Request2Servlet', //请求url地址
+						type:'GET', //请求方式
+						dataType:'text',//响应的内容类型
+						data:{}, //请求参数
+						success:function(data,status,xhr) { //请求成功回调
+							alert('请求成功,' + data);
+						},
+						error:function(xhr,errorStatus,errorText) { //请求失败回调
+							alert('请求失败，' + errorStatus + ',' + errorText + ',' + xhr.status);
+						}
+					});
+					
+					//当多个ajax请求全都结束的回调函数
+					$.when(ajax1,ajax2)
+					.done (function() {//多个异步请求全都成功回调
+						alert('两个请求都成功了')
+					})
+					.fail(function() {//有一个失败了回调
+						alert('有一个请求失败了')
+					});
+				});	
+				
+			});			
+		</script>
+	</body>
+</html>

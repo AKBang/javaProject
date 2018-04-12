@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>	
+	<form>
+		用户名<input type="text" name="username" id="username">
+		<span id="userMsg" style="font-size: 14px;"></span>
+		<br>
+		密&nbsp;&nbsp;码<input type="text" name="userpwd" id="userpwd">		
+	</form>	
+	
+	<script>
+		//返回xhr核心对象
+		function getXhr() {
+			
+			var xhr;
+			
+			if (window.XMLHttpRequest) { //w3c标准
+				xhr = new XMLHttpRequest();
+			} else {
+				xhr = new ActiveXObject("Microsoft.XMLHTTP"); //ie
+			}
+			
+			return xhr;			
+		}
+		
+		window.onload = function() {
+			
+			//获得dom对象
+			var username = document.getElementById('username');
+			var userMsg = document.getElementById('userMsg');
+			
+			//用户名文本框内容被改变，检查用户名是否已存在
+			username.onchange = function() {
+				
+				//验证是否为空
+				if (username.value == '') {
+					userMsg.innerHTML = '用户名不能为空';
+					userMsg.style.color = 'red';
+					return;
+				}				
+				
+				userMsg.innerHTML = '<img src="img/loading-1.gif" width="20">';//loading加载中状态
+				username.readOnly = true;//文本框只读
+				
+				var xhr = getXhr();//获得xhr核心对象
+				
+				var url = "CheckUsernameServlet?username=" + username.value;//请求url
+				
+				xhr.open('GET',url);//设置请求方式和url
+				
+				xhr.send();//发送请求	
+				
+				//事件回调
+				xhr.onreadystatechange = function() {
+					
+					//等于4 表示请求响应结束
+					if(xhr.readyState == 4) {
+						
+						//200 表示请求响应成功
+						if(xhr.status == 200) {
+							
+							var result = xhr.responseText;//获得响应的内容
+							
+							if (result == 'yes') {
+								userMsg.style.color = 'green';
+								userMsg.innerHTML = '亲，这个用户名可以使用的呀';
+							} else {
+								userMsg.style.color = 'red';
+								userMsg.innerHTML = '很抱歉，这个用户名已经被占用了';
+							}
+							
+						} else {
+							alert('请求失败，状态码：' +  xhr.status);
+						}
+						
+						username.readOnly = false;//文本框取消只读						
+					}
+					
+				}
+			}
+			
+		}
+	</script>
+</body>
+</html>

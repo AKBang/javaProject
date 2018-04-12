@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>		
+		<input type="button" value="json数据请求1" id="btn1" />
+						
+		<script type="text/javascript" src="js/jquery.js" ></script>
+		<script>
+			$(function() {
+				
+				$('#btn1').click(function() {
+					
+					$.getJSON('json2.txt',function(data) {
+						
+						$.each(data,function(index,el) {
+							
+							console.log(el);
+							
+						});
+						
+					});
+					
+				});	
+				
+			});			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>			
+		<input type="button" value="ajax请求" id="btn1" />
+			
+		<script type="text/javascript" src="js/jquery.js" ></script>
+		<script>
+			$(function() {
+				
+				$('#btn1').click(function() {
+					
+					/*ajax的回调函数的链式写法*/
+					$.ajax({
+						url:'RequestFormServlet', //请求url地址
+						type:'GET', //请求方式
+						dataType:'text',//响应的内容类型
+						data:{username:'jack',userpwd:'123456'}//请求参数						
+					})
+					.done(function(data,status,xhr) { //请求成功回调
+						alert('请求成功,' + data);
+					})
+					.fail(function(xhr,errorStatus,errorText) { //请求失败回调
+						alert('请求失败，' + errorStatus + ',' + errorText + ',' + xhr.status);
+					})
+					.always(function() {
+						alert('请求完成');
+					});
+					
+				});	
+				
+			});			
+		</script>
+	</body>
+</html>

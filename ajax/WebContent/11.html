@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>	
+		<input type="button" value="调用m1函数" onclick="m1();" />		
+		<input type="button" value="动态加载js" id="btn1" />
+			
+		<script type="text/javascript" src="js/jquery.js" ></script>
+		<script>
+			$(function() {
+				
+				$('#btn1').click(function() {
+					
+					//动态加载js
+					$.getScript('script.js');
+					
+				});	
+				
+			});			
+		</script>
+	</body>
+</html>
